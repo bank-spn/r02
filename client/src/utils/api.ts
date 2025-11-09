@@ -1,11 +1,15 @@
 import { APIResponse, ParcelStatus, TrackingEvent } from "@/types";
+import { 
+  fetchThailandPostTracking, 
+  isThailandPostAPIConfigured 
+} from "@/services/thailandPostAPI";
 
 /**
- * Placeholder REST API for Thailand Post tracking
- * Future integration point for real API
+ * API integration for Thailand Post tracking
+ * Supports both real API and mock data for testing
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://api.example.com/v1/track";
+const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === "true" || false;
 
 /**
  * Mock tracking data for demonstration
@@ -58,41 +62,42 @@ const MOCK_TRACKING_DATA: Record<string, APIResponse> = {
  * In production, replace with actual Thailand Post API
  */
 export async function fetchTrackingStatus(
-  trackingNumber: string
+  trackingNumber: string,
+  forceRefresh: boolean = false
 ): Promise<APIResponse> {
   try {
-    // Check if we have mock data for this tracking number
-    if (MOCK_TRACKING_DATA[trackingNumber]) {
-      // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      return MOCK_TRACKING_DATA[trackingNumber];
-    }
-
-    // Attempt to fetch from real API (when configured)
-    if (API_BASE_URL !== "https://api.example.com/v1/track") {
-      const response = await fetch(`${API_BASE_URL}/${trackingNumber}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.statusText}`);
+    // Use mock data if enabled or if real API is not configured
+    if (USE_MOCK_DATA || !isThailandPostAPIConfigured()) {
+      console.log("Using mock data for tracking");
+      
+      // Check if we have mock data for this tracking number
+      if (MOCK_TRACKING_DATA[trackingNumber]) {
+        // Simulate network delay
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        return MOCK_TRACKING_DATA[trackingNumber];
       }
-
-      const data = await response.json();
-      return data;
+      
+      // Return unknown status if no mock data
+      return {
+        status: "unknown" as ParcelStatus,
+        history: [],
+        lastUpdated: new Date().toISOString(),
+      };
     }
 
-    // Return unknown status if no mock data and no real API
-    return {
-      status: "unknown" as ParcelStatus,
-      history: [],
-      lastUpdated: new Date().toISOString(),
-    };
+    // Fetch from Thailand Post API
+    console.log("Fetching from Thailand Post API");
+    return await fetchThailandPostTracking(trackingNumber, forceRefresh);
+    
   } catch (error) {
     console.error("Error fetching tracking status:", error);
+    
+    // Fallback to mock data if available
+    if (MOCK_TRACKING_DATA[trackingNumber]) {
+      console.log("Falling back to mock data due to error");
+      return MOCK_TRACKING_DATA[trackingNumber];
+    }
+    
     return {
       status: "unknown" as ParcelStatus,
       history: [],

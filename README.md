@@ -104,24 +104,46 @@ client/
 
 ## 🔌 API Integration
 
-The app includes a placeholder for Thailand Post API integration. To connect a real API:
+### Thailand Post API - Production Ready ✅
 
-1. Update the `API_BASE_URL` in `client/src/utils/api.ts`
-2. Modify the `fetchTrackingStatus` function to match your API response format
-3. The expected response format:
+The app is now fully integrated with **Thailand Post Track & Trace API**. Real-time tracking data is fetched directly from Thailand Post's official API.
 
-```typescript
-{
-  status: "in_transit" | "delivered" | "returned" | ...,
-  history: [
-    {
-      timestamp: "2025-11-01T10:00:00Z",
-      location: "Bangkok",
-      message: "Accepted by post office"
-    },
-    ...
-  ]
-}
+#### Setup
+
+1. Create a `.env` file in the root directory:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Add your Thailand Post API token:
+   ```env
+   VITE_THAILAND_POST_API_URL=https://trackapi.thailandpost.co.th/post/api/v1/track
+   VITE_THAILAND_POST_API_TOKEN=Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9...
+   VITE_USE_MOCK_DATA=false
+   ```
+
+3. Get your API token from [Thailand Post Track API](https://trackapi.thailandpost.co.th/)
+
+#### Features
+
+- ✅ **Real-time tracking** from Thailand Post API
+- ✅ **Response caching** (5 minutes) to reduce API calls
+- ✅ **Automatic status mapping** from Thailand Post codes to app statuses
+- ✅ **Date conversion** from Buddhist Era (พ.ศ.) to Gregorian (ค.ศ.)
+- ✅ **Error handling** with fallback to mock data
+- ✅ **Rate limiting** awareness (1500 requests/day)
+
+#### Documentation
+
+- [Thailand Post API Integration Guide](docs/THAILAND_POST_API_INTEGRATION.md)
+- [Testing Guide](docs/TESTING_GUIDE.md)
+- [Integration Plan](INTEGRATION_PLAN.md)
+
+#### Mock Data Mode
+
+For development without API access:
+```env
+VITE_USE_MOCK_DATA=true
 ```
 
 ## 💾 Data Storage

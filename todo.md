@@ -55,3 +55,16 @@
 - [x] Implement Create Recipient redirect to dpostinter form
 - [x] Add hamburger menu icon for mobile
 - [x] Style sidebar to match app design
+
+
+## Updates - Price Check & Auto Login
+- [ ] Update Price Check URL to English version
+- [ ] Create Auto Login system for Create Recipient
+- [ ] Test Auto Login functionality
+
+## Deployment Preparation
+- [ ] Create vercel.json configuration file
+- [ ] Create .gitignore for GitHub
+- [ ] Initialize Git repository
+- [ ] Push source code to GitHub repository
+- [ ] Verify GitHub repository contains all source files

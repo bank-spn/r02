@@ -21,7 +21,7 @@ export default function Sidebar({ currentPage = "dashboard" }: SidebarProps) {
       id: "price-check",
       label: "Price Check",
       icon: DollarSign,
-      href: "https://www.thailandpost.co.th/index.php?page=rate_result_nrs3",
+      href: "https://www.thailandpost.co.th/index.php?page=rate_result_nrs3&language=en",
       external: true,
     },
     {
@@ -34,12 +34,39 @@ export default function Sidebar({ currentPage = "dashboard" }: SidebarProps) {
   ];
 
   const handleMenuItemClick = (item: typeof menuItems[0]) => {
-    if (item.external) {
+    if (item.id === "create-recipient") {
+      // Auto-login to dpostinter
+      handleAutoLogin();
+    } else if (item.external) {
       window.open(item.href, "_blank");
     } else {
       window.location.href = item.href;
     }
     setIsOpen(false);
+  };
+
+  const handleAutoLogin = () => {
+    // Create a form to submit credentials
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "https://dpostinter.thailandpost.com/Login";
+    form.target = "_blank";
+
+    const usernameInput = document.createElement("input");
+    usernameInput.type = "hidden";
+    usernameInput.name = "UserName";
+    usernameInput.value = "achira";
+
+    const passwordInput = document.createElement("input");
+    passwordInput.type = "hidden";
+    passwordInput.name = "Password";
+    passwordInput.value = "2605Bank";
+
+    form.appendChild(usernameInput);
+    form.appendChild(passwordInput);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
   };
 
   return (
@@ -99,7 +126,7 @@ export default function Sidebar({ currentPage = "dashboard" }: SidebarProps) {
               >
                 <Icon className="h-5 w-5" />
                 <span>{item.label}</span>
-                {item.external && (
+                {(item.external || item.id === "create-recipient") && (
                   <span className="ml-auto text-xs text-gray-400">↗</span>
                 )}
               </button>

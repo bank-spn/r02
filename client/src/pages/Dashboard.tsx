@@ -42,10 +42,10 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-16 lg:pt-0">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
-        <div className="container max-w-6xl mx-auto px-4 py-6">
+      <header className="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
+        <div className="container max-w-6xl mx-auto px-4 py-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-blue-100 rounded-lg">
@@ -60,7 +60,7 @@ export default function Dashboard() {
       </header>
 
       {/* Main Content */}
-      <main className="container max-w-6xl mx-auto px-4 py-8">
+      <main className="container max-w-6xl mx-auto px-4 py-8 lg:px-8">
         {parcels.length === 0 ? (
           // Empty State
           <div className="flex flex-col items-center justify-center py-16">
@@ -108,7 +108,7 @@ export default function Dashboard() {
       {/* Floating Add Button */}
       <button
         onClick={() => setIsModalOpen(true)}
-        className="fixed bottom-8 right-8 p-4 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all hover:shadow-xl active:scale-95"
+        className="fixed bottom-8 right-8 p-4 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all hover:shadow-xl active:scale-95 lg:bottom-8 lg:right-8"
         title="Add new parcel"
         aria-label="Add new parcel"
       >

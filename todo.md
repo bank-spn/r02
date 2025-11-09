@@ -46,3 +46,12 @@
 - [x] .env.example with API placeholder
 - [x] Clean code structure following React best practices
 - [x] All text in English
+
+
+## New Features - Sidebar Navigation
+- [x] Create Sidebar component with dropdown menu
+- [x] Add menu items: Dashboard, Price Check, Create Recipient
+- [x] Implement Price Check redirect to Thailand Post rate page
+- [x] Implement Create Recipient redirect to dpostinter form
+- [x] Add hamburger menu icon for mobile
+- [x] Style sidebar to match app design

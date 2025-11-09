@@ -4,18 +4,24 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import ParcelDetail from "./pages/ParcelDetail";
 
 function Router() {
   return (
-    <Switch>
-      <Route path={"/"} component={Dashboard} />
-      <Route path={"/parcel/:id"} component={ParcelDetail} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
+    <div className="flex min-h-screen">
+      <Sidebar />
+      <main className="flex-1 lg:ml-0">
+        <Switch>
+          <Route path={"/"} component={Dashboard} />
+          <Route path={"/parcel/:id"} component={ParcelDetail} />
+          <Route path={"/404"} component={NotFound} />
+          {/* Final fallback route */}
+          <Route component={NotFound} />
+        </Switch>
+      </main>
+    </div>
   );
 }
 

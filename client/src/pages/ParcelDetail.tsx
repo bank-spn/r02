@@ -74,10 +74,10 @@ export default function ParcelDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-16 lg:pt-0">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 shadow-sm">
-        <div className="container max-w-4xl mx-auto px-4 py-4">
+      <header className="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
+        <div className="container max-w-4xl mx-auto px-4 py-4 lg:px-8">
           <Button
             variant="ghost"
             onClick={() => setLocation("/")}
@@ -90,9 +90,9 @@ export default function ParcelDetail() {
       </header>
 
       {/* Main Content */}
-      <main className="container max-w-4xl mx-auto px-4 py-8">
+      <main className="container max-w-4xl mx-auto px-4 py-8 lg:px-8">
         {/* Parcel Info Card */}
-        <Card className="p-6 mb-6">
+        <Card className="p-4 md:p-6 mb-6">
           <div className="flex items-start justify-between gap-4 mb-6">
             <div className="flex-1">
               <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">
@@ -161,7 +161,7 @@ export default function ParcelDetail() {
         </Card>
 
         {/* Timeline Section */}
-        <Card className="p-6 mb-6">
+        <Card className="p-4 md:p-6 mb-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-900">
               Tracking Timeline
